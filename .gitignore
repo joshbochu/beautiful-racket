@@ -1,4 +1,4 @@
 *.dep
 *.zo
 *.rkt~
-*.DS_STORE~
+*.DS_STORE
