@@ -2,3 +2,4 @@
 *.zo
 *.rkt~
 *.DS_STORE
+**/compiled/
