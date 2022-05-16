@@ -1,5 +1,6 @@
 #lang br/quicklang
 
+; reader
 (define (read-syntax path port)
   (define src-lines (port->lines port))
   (define src-datums (format-datums '(handle ~a) src-lines))
@@ -8,12 +9,14 @@
   (datum->syntax #f module-datum))
 (provide read-syntax)
 
+; expander
 (define-macro (stacker-module-begin HANDLE-EXPR ...)
   #'(#%module-begin
      HANDLE-EXPR ...
      (display (first stack))))
 (provide (rename-out [stacker-module-begin #%module-begin]))
 
+; stack
 (define stack empty)
 
 (define (pop-stack!)
@@ -24,6 +27,7 @@
 (define (push-stack! arg)
   (set! stack (cons arg stack)))
 
+; handler
 (define (handle [arg #f])
   (cond
     [(number? arg) (push-stack! arg)]
